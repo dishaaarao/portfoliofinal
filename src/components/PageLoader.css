@@ -1,0 +1,166 @@
+.pl-root {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ── Two vertical panels that split apart on open ── */
+.pl-panel {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: #0a0a0a;
+  transition: transform 0.85s cubic-bezier(0.76, 0, 0.24, 1);
+  z-index: 1;
+}
+.pl-panel--left  { left: 0;  transform-origin: left center; }
+.pl-panel--right { right: 0; transform-origin: right center; }
+
+.pl-root--opening .pl-panel--left  { transform: translateX(-100%); }
+.pl-root--opening .pl-panel--right { transform: translateX(100%);  }
+
+/* ── Content ── */
+.pl-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  transition: opacity 0.3s ease;
+}
+
+.pl-content--hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Name ── */
+.pl-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.pl-name-row {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(3.5rem, 12vw, 9rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #f5f0e8;
+  display: block;
+  animation: plSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.pl-name-row--outline {
+  -webkit-text-stroke: 1.5px #f5f0e8;
+  color: transparent;
+  animation-delay: 0.12s;
+}
+
+@keyframes plSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Meta ── */
+.pl-meta {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #555550;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: plSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+}
+
+.pl-meta-sep { color: #e63946; }
+
+/* ── Counter ── */
+.pl-counter {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: #e63946;
+  animation: plSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+  font-variant-numeric: tabular-nums;
+  min-width: 2.5ch;
+  text-align: center;
+}
+
+/* ── Progress bar ── */
+.pl-bar-track {
+  width: min(320px, 80vw);
+  height: 1px;
+  background: rgba(245, 240, 232, 0.12);
+  position: relative;
+  animation: plSlideUp 0.5s ease 0.4s both;
+}
+
+.pl-bar-fill {
+  height: 100%;
+  background: #e63946;
+  transition: width 0.12s linear;
+  transform-origin: left;
+}
+
+/* ── Sound toggle button ───────────────────────────────── */
+.pl-sound-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 1px solid rgba(245, 240, 232, 0.15);
+  color: rgba(245, 240, 232, 0.35);
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  border-radius: 2px;
+  animation: plSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+.pl-sound-btn:hover {
+  color: #f5f0e8;
+  border-color: rgba(245, 240, 232, 0.4);
+  background: rgba(245, 240, 232, 0.04);
+}
+
+/* Active/ON state — accent colour */
+.pl-sound-btn--on {
+  color: #e63946;
+  border-color: rgba(230, 57, 70, 0.5);
+}
+
+.pl-sound-btn--on:hover {
+  color: #e63946;
+  border-color: #e63946;
+  background: rgba(230, 57, 70, 0.06);
+}
+
+/* ── Hint text ─────────────────────────────────────────── */
+.pl-sound-hint {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  color: rgba(245, 240, 232, 0.2);
+  text-transform: lowercase;
+  margin-top: 0.25rem;
+  animation: plSlideUp 0.5s ease 0.5s both;
+  transition: color 0.3s ease;
+}

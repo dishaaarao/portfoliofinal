@@ -1,74 +1,91 @@
 import React, { useEffect } from 'react';
-import { X, ExternalLink, Github, CheckCircle, Sparkles } from 'lucide-react';
+import { X, ExternalLink, Github } from 'lucide-react';
 import './ProjectModal.css';
 
 export default function ProjectModal({ project, onClose }) {
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === 'Escape') onClose();
-    };
-    window.addEventListener('keydown', handleKeyDown);
+    const onKey = (e) => e.key === 'Escape' && onClose();
+    window.addEventListener('keydown', onKey);
     document.body.style.overflow = 'hidden';
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'auto';
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
     };
   }, [onClose]);
 
   if (!project) return null;
 
   return (
-    <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal-content-card" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-header-banner" style={{ background: project.imageBg }}>
-          <button className="modal-close-btn" onClick={onClose} aria-label="Close modal">
-            <X size={20} />
+    <div
+      className="modal-backdrop"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={project.title}
+    >
+      <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+
+        {/* Top bar */}
+        <div className="modal-topbar">
+          <span className="modal-category-label">{project.category}</span>
+          <button className="modal-close-btn" onClick={onClose} aria-label="Close">
+            <X size={16} />
           </button>
-          <span className="project-card-category">{project.category}</span>
         </div>
 
+        {/* Accent stripe using project color */}
+        <div
+          className="modal-banner"
+          style={{ background: project.imageBg }}
+          aria-hidden="true"
+        />
+
+        {/* Body */}
         <div className="modal-body">
           <h2 className="modal-title">{project.title}</h2>
           <p className="modal-subtitle">{project.subtitle}</p>
-
           <p className="modal-description">{project.description}</p>
 
-          <h3 className="modal-section-title">
-            <Sparkles size={18} color="var(--accent-primary)" />
-            <span>Key Achievements & Features</span>
-          </h3>
+          {/* Highlights */}
+          {project.highlights?.length > 0 && (
+            <>
+              <p className="modal-section-title">Key Features</p>
+              <ul className="modal-highlights">
+                {project.highlights.map((h, i) => (
+                  <li key={i} className="modal-highlight-item">
+                    <span className="modal-highlight-num">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span>{h}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
 
-          <ul className="modal-highlights-list">
-            {project.highlights?.map((highlight, idx) => (
-              <li key={idx} className="modal-highlight-item">
-                <CheckCircle size={16} color="var(--accent-secondary)" style={{ flexShrink: 0, marginTop: '3px' }} />
-                <span>{highlight}</span>
-              </li>
-            ))}
-          </ul>
-
-          <h3 className="modal-section-title">Technologies Used</h3>
-          <div className="project-tags" style={{ marginBottom: '1.5rem' }}>
-            {project.tags.map((tag, idx) => (
-              <span key={idx} className="project-tag">{tag}</span>
+          {/* Tech tags */}
+          <p className="modal-section-title">Technologies</p>
+          <div className="modal-tags">
+            {project.tags.map((tag, i) => (
+              <span key={i} className="tag">{tag}</span>
             ))}
           </div>
 
+          {/* Actions */}
           <div className="modal-actions">
             {project.liveUrl && (
               <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                <span>View Live Demo</span>
-                <ExternalLink size={16} />
+                Live Demo <ExternalLink size={14} />
               </a>
             )}
             {project.githubUrl && (
-              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
-                <Github size={16} />
-                <span>Source Code</span>
+              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline">
+                <Github size={14} /> Source Code
               </a>
             )}
           </div>
         </div>
+
       </div>
     </div>
   );

@@ -1,0 +1,70 @@
+.marquee-section {
+  overflow: hidden;
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  user-select: none;
+}
+
+.marquee-row {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.marquee-row--alt {
+  margin-top: 0.5rem;
+  opacity: 0.5;
+}
+
+.marquee-track {
+  display: inline-flex;
+  gap: 0;
+  --marquee-dur: 28s;
+  will-change: transform;
+}
+
+.marquee-track--left {
+  animation: marqueeLeft var(--marquee-dur) linear infinite;
+}
+
+.marquee-track--right {
+  animation: marqueeRight var(--marquee-dur) linear infinite;
+}
+
+.marquee-item {
+  font-family: var(--font-display);
+  font-size: clamp(0.8rem, 1.4vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 3rem;
+  transition: color 0.2s ease;
+}
+
+.marquee-item:hover {
+  color: var(--accent);
+}
+
+/* Accent items */
+.marquee-item:nth-child(2n) {
+  color: var(--text-secondary);
+}
+
+@keyframes marqueeLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marqueeRight {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track--left,
+  .marquee-track--right {
+    animation: none;
+  }
+}

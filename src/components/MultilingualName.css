@@ -1,0 +1,144 @@
+/* ── MultilingualName ─────────────────────────────────── */
+.mlname {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15em;
+  vertical-align: bottom;
+  position: relative;
+}
+
+.mlname__text {
+  display: block;
+  line-height: 1;
+  transition: color 0.08s ease;
+}
+
+.mlname__script {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.12em;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+}
+
+/* ── Glitch state: rapid fire ─────────────────────────── */
+.mlname--glitch .mlname__text {
+  color: var(--accent);
+  animation: glitch-flicker 0.05s steps(1) infinite;
+}
+
+.mlname--glitch .mlname__script {
+  opacity: 0.8;
+  color: var(--accent);
+}
+
+/* ── Rest state: settled on English "Rao" ─────────────── */
+.mlname--rest .mlname__text {
+  color: inherit;
+  animation: none;
+}
+
+.mlname--rest .mlname__script {
+  opacity: 0.4;
+  color: var(--text-secondary);
+}
+
+/* Glitch flicker animation — slight brightness/offset pulse */
+@keyframes glitch-flicker {
+  0%   { opacity: 1;    text-shadow: -1px 0 var(--accent); }
+  25%  { opacity: 0.85; text-shadow:  1px 0 #00fff7; }
+  50%  { opacity: 1;    text-shadow: -1px 0 var(--accent); }
+  75%  { opacity: 0.9;  text-shadow:  0 0 0 transparent; }
+  100% { opacity: 1;    text-shadow: -1px 0 var(--accent); }
+}
+
+/* ── Hero integration ─────────────────────────────────── */
+.hero-multilingual {
+  align-items: center;
+  vertical-align: baseline;
+}
+
+.hero-multilingual .mlname__text {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(4rem, 11vw, 9.5rem);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+/* Override glitch color to accent */
+.hero-multilingual.mlname--glitch .mlname__text {
+  color: var(--accent);
+}
+
+.hero-multilingual .mlname__script {
+  font-size: clamp(0.55rem, 1vw, 0.75rem);
+  margin-top: 0.4em;
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+
+/* ── Hero Hello integration ───────────────────────────── */
+.hero-hello {
+  align-items: center;
+  vertical-align: baseline;
+}
+
+.hero-hello .mlname__text {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.hero-hello.mlname--glitch .mlname__text {
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.hero-hello .mlname__script {
+  display: none;
+}
+
+/* ── About integration ────────────────────────────────── */
+.about-multilingual {
+  font-size: 3.5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+/* ── Footer integration ───────────────────────────────── */
+.footer-multilingual {
+  display: inline;
+  flex-direction: unset;
+}
+
+.footer-multilingual .mlname__text {
+  display: inline;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+}
+
+.footer-multilingual .mlname__script {
+  display: none;
+}
+
+/* ── Reduce motion ────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .mlname--glitch .mlname__text {
+    animation: none;
+    text-shadow: none;
+  }
+}

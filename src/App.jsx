@@ -1,55 +1,78 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Projects from './components/Projects';
-import Experience from './components/Experience';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import Navbar      from './components/Navbar';
+import Hero        from './components/Hero';
+import About       from './components/About';
+import Skills      from './components/Skills';
+import Projects    from './components/Projects';
+import Experience  from './components/Experience';
+import Contact     from './components/Contact';
+import Footer      from './components/Footer';
+import Cursor      from './components/Cursor';
+import GrainOverlay from './components/GrainOverlay';
+import PageLoader   from './components/PageLoader';
+import Chatbot      from './components/Chatbot';
+import ThemePanel   from './components/ThemePanel';
+import { useReveal, useSectionLabel } from './hooks/useReveal';
 
 export default function App() {
-  const [theme, setTheme] = useState('dark');
-  const [toasts, setToasts] = useState([]);
+  const [theme, setTheme]       = useState('dark');
+  const [toasts, setToasts]     = useState([]);
+  const [ready, setReady]       = useState(false);   // loader done
 
+  // Apply theme
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  };
+  // Global scroll-reveal & section-label line-draws
+  // (fire after loader is gone so elements are in their initial hidden state)
+  useReveal(null, 0.1);
+  useSectionLabel();
+
+  const toggleTheme = () => setTheme((p) => (p === 'dark' ? 'light' : 'dark'));
 
   const showToast = (message) => {
     const id = Date.now();
     setToasts((prev) => [...prev, { id, message }]);
-    setTimeout(() => {
-      setToasts((prev) => prev.filter((t) => t.id !== id));
-    }, 4000);
+    setTimeout(() => setToasts((prev) => prev.filter((t) => t.id !== id)), 4000);
   };
 
   return (
-    <div className="app-shell">
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Contact showToast={showToast} />
-      </main>
-      <Footer />
+    <>
+      {/* ── Overlay effects (z-index above everything) ── */}
+      <Cursor />
+      <GrainOverlay />
 
-      {/* Global Toast Container */}
-      <div className="toast-container">
-        {toasts.map((toast) => (
-          <div key={toast.id} className="toast">
-            <span>✨</span>
-            <span>{toast.message}</span>
-          </div>
-        ))}
+      {/* ── Page loader ─────────────────────────────── */}
+      {!ready && <PageLoader onDone={() => setReady(true)} />}
+
+      {/* ── Main shell ──────────────────────────────── */}
+      <div className="app-shell" style={{ visibility: ready ? 'visible' : 'hidden' }}>
+        <Navbar theme={theme} toggleTheme={toggleTheme} />
+        <main>
+          <Hero       ready={ready} />
+          <About />
+          <Skills />
+          <Projects />
+          <Experience />
+          <Contact showToast={showToast} />
+        </main>
+        <Footer />
+
+        {/* Global Toast */}
+        <div className="toast-container">
+          {toasts.map((t) => (
+            <div key={t.id} className="toast">
+              <span style={{ color: 'var(--accent)' }}>◈</span>
+              <span>{t.message}</span>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+
+      {/* ── Floating widgets (outside app-shell so always visible) ── */}
+      <Chatbot />
+      <ThemePanel />
+    </>
   );
 }

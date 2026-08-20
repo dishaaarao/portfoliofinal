@@ -3,11 +3,11 @@ export const personalDetails = {
   role: "Full-Stack Developer & UI/UX Specialist",
   tagline: "Crafting performant, accessible, and visual-first web experiences.",
   availability: "Available for New Opportunities",
-  location: "Bangalore, India / Remote",
-  email: "disha.rao@example.com",
-  github: "https://github.com/disharao",
-  linkedin: "https://linkedin.com/in/disharao",
-  twitter: "https://twitter.com/disharao_dev",
+  location: "Panvel, Navi Mumbai / Remote",
+  email: "raodisha33@gmail.com",
+  github: "https://github.com/dishaaarao",
+  linkedin: "https://www.linkedin.com/in/disha-rao-940558318",
+  twitter: "https://x.com/disharao_2810?s=11",
   aboutShort: "I build modern web applications with pixel-perfect design, resilient backend architecture, and seamless user experiences.",
   aboutLong: [
     "Hello! I'm Disha, a Software Engineer and UI/UX Designer who thrives at the intersection of aesthetic design and production-ready engineering.",
@@ -56,93 +56,58 @@ export const skillCategories = [
   }
 ];
 
-export const projectCategories = ["All", "Full Stack", "Frontend", "UI/UX Design"];
+export const projectCategories = ["All", "Full Stack", "UI/UX Design"];
 
 export const projects = [
   {
+    id: "aura-ai",
+    title: "Aura — AI Assistant",
+    category: "Full Stack",
+    subtitle: "Conversational AI Web Application",
+    description: "A sleek AI assistant web app built with a modern React frontend and integrated AI APIs. Features real-time chat, context-aware responses, and a clean minimal UI designed for seamless human–AI interaction.",
+    tags: ["React", "AI/LLM API", "Node.js", "Tailwind CSS", "Vercel"],
+    githubUrl: "https://github.com/dishaaarao",
+    liveUrl: "https://aura-lilac-xi-14.vercel.app/",
+    featured: true,
+    imageBg: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+    highlights: [
+      "Real-time AI chat with context-aware responses",
+      "Clean minimal UI optimised for conversation flow",
+      "Deployed on Vercel with fast cold-start performance"
+    ]
+  },
+  {
+    id: "snapscan-gallery",
+    title: "SnapScan — Collaborative Gallery",
+    category: "Full Stack",
+    subtitle: "Real-time Collaborative Photo Gallery",
+    description: "A collaborative gallery platform where users can upload, organise, and share photo collections in real time. Features live sync, user tagging, and a responsive masonry grid layout.",
+    tags: ["React", "Firebase", "Real-time Sync", "CSS Grid", "Vercel"],
+    githubUrl: "https://github.com/dishaaarao",
+    liveUrl: "https://snapscan-kappa.vercel.app/",
+    featured: true,
+    imageBg: "linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)",
+    highlights: [
+      "Real-time collaborative uploads with live sync",
+      "Masonry grid layout with smooth image transitions",
+      "User tagging and collection organisation"
+    ]
+  },
+  {
     id: "yogurberry-brand",
-    title: "Yogurberry Interactive Experience",
-    category: "Frontend",
-    subtitle: "Modern Frozen Yogurt Brand Web App",
-    description: "A vibrant, interactive web application featuring custom flavor customizers, store locators, loyalty membership calculator, dynamic wave animations, and glassmorphic UI elements.",
-    tags: ["React", "Vite", "CSS Modules", "Custom Animations", "Responsive"],
-    githubUrl: "https://github.com/disharao/yogurberry-app",
-    liveUrl: "https://yogurberry.example.com",
+    title: "Yogurberry — Brand Design",
+    category: "UI/UX Design",
+    subtitle: "Figma UI/UX Design for Frozen Yogurt Brand",
+    description: "Complete UI/UX design project for Yogurberry, an Australian frozen yogurt brand. Designed full brand identity, interactive menu flows, store locator screens, and a loyalty programme experience in Figma.",
+    tags: ["Figma", "UI Design", "Brand Identity", "Prototyping", "UX Research"],
+    githubUrl: "https://github.com/dishaaarao",
+    liveUrl: "https://yogurberry.com.au/",
     featured: true,
     imageBg: "linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%)",
     highlights: [
-      "Custom flavor modal picker with ingredient breakdown",
-      "Dynamic interactive wave dividers and smooth drip keyframes",
-      "Store locator filterable by city and feature tags",
-      "Dark & Light mode themes with HSL palette tokens"
-    ]
-  },
-  {
-    id: "taskpulse-analytics",
-    title: "TaskPulse Analytics Dashboard",
-    category: "Full Stack",
-    subtitle: "AI-Powered Productivity & Project Insights",
-    description: "An intuitive SaaS dashboard providing real-time team workflow telemetry, task completion forecasting, automated report generation, and dark mode design system.",
-    tags: ["React", "TypeScript", "Node.js", "Express", "Chart.js"],
-    githubUrl: "https://github.com/disharao/taskpulse-dashboard",
-    liveUrl: "https://taskpulse.example.com",
-    featured: true,
-    imageBg: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    highlights: [
-      "Real-time analytics widgets with drag-and-drop customization",
-      "JWT authentication with role-based access control (RBAC)",
-      "Automated summary generation for weekly team standups"
-    ]
-  },
-  {
-    id: "aurora-design-system",
-    title: "Aurora Design System & Components",
-    category: "UI/UX Design",
-    subtitle: "Accessible React UI Component Library",
-    description: "A comprehensive UI component library featuring 30+ accessible components, Figma design kit, theme tokens, interactive documentation, and zero-dependency animations.",
-    tags: ["Figma", "React", "Storybook", "Accessibility (a11y)"],
-    githubUrl: "https://github.com/disharao/aurora-design-system",
-    liveUrl: "https://aurora-ui.example.com",
-    featured: true,
-    imageBg: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
-    highlights: [
-      "Fully WCAG 2.1 AA compliant component set",
-      "Interactive Storybook playground with live token tweaking",
-      "Lightweight CSS variable driven dynamic color schemes"
-    ]
-  },
-  {
-    id: "crypto-vault-tracker",
-    title: "CryptoVault Portfolio Hub",
-    category: "Full Stack",
-    subtitle: "Real-time Crypto Portfolio & Market Explorer",
-    description: "A web platform connecting to live crypto pricing APIs, featuring interactive Candlestick charts, custom price alert notifications, and wallet tracking.",
-    tags: ["React", "Tailwind CSS", "WebSocket", "CoinGecko API"],
-    githubUrl: "https://github.com/disharao/cryptovault-tracker",
-    liveUrl: "https://cryptovault.example.com",
-    featured: false,
-    imageBg: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
-    highlights: [
-      "Live price streaming via WebSocket connection",
-      "Custom alerts sent directly to user browser or email",
-      "Exportable CSV tax & transaction summary reports"
-    ]
-  },
-  {
-    id: "zenith-agency-portfolio",
-    title: "Zenith Creative Agency Site",
-    category: "Frontend",
-    subtitle: "High-End Motion & Portfolio Web Experience",
-    description: "An award-winning agency landing page built with custom micro-interactions, smooth scroll physics, video backgrounds, and dynamic project filtering.",
-    tags: ["React", "GSAP", "Vanilla CSS", "Interactive Web GL"],
-    githubUrl: "https://github.com/disharao/zenith-agency",
-    liveUrl: "https://zenith-agency.example.com",
-    featured: false,
-    imageBg: "linear-gradient(135deg, #30cfd0 0%, #330867 100%)",
-    highlights: [
-      "Smooth cursor trailing effect and dynamic magnetic buttons",
-      "Page load speed score of 98 on Google Lighthouse",
-      "Fluid responsive layout for ultra-wide monitors and mobile devices"
+      "Full brand identity system with colour, typography, and component tokens",
+      "Interactive Figma prototype with menu customiser and store locator flows",
+      "Designed loyalty membership screens and onboarding experience"
     ]
   }
 ];
@@ -150,46 +115,61 @@ export const projects = [
 export const experiences = [
   {
     period: "2024 - Present",
-    role: "Full-Stack Developer",
+    role: "Web Developer",
     company: "TechNova Solutions",
-    location: "Bangalore, India",
+    companyUrl: "https://technovasolutions.in/",
+    location: "Remote",
     type: "Full-time",
-    description: "Architecting and implementing scalable enterprise web applications, driving component library refactoring, and mentoring junior engineers.",
+    description: "Developing and maintaining responsive web applications for clients, building reusable component libraries, and delivering pixel-perfect UI implementations across multiple client projects.",
     skills: ["React", "Next.js", "Node.js", "TypeScript", "Tailwind CSS"]
   },
   {
-    period: "2023 - 2024",
-    role: "Frontend Engineer & UI Developer",
-    company: "PixelCraft Studios",
+    period: "2024 (2 months)",
+    role: "Figma Designer",
+    company: "Yogurberry",
+    companyUrl: "https://yogurberry.com.au/",
     location: "Remote",
-    type: "Full-time",
-    description: "Designed responsive user interfaces, built reusable component design systems in React, and optimized web performance across client applications.",
-    skills: ["React", "JavaScript", "CSS Modules", "Figma", "Redux"]
+    type: "Contract",
+    description: "Designed the complete UI/UX for Yogurberry's web presence — including brand identity, interactive menu flows, store locator screens, and a loyalty programme experience in Figma.",
+    skills: ["Figma", "UI Design", "Prototyping", "Brand Identity", "UX Research"]
   },
   {
-    period: "2022 - 2023",
-    role: "UI/UX Engineering Intern",
-    company: "InnovateX Labs",
-    location: "Bangalore, India",
+    period: "2024",
+    role: "Frontend Intern",
+    company: "LetsUpgrade — LISA AI",
+    companyUrl: "https://lisaapp.in/",
+    location: "Remote",
     type: "Internship",
-    description: "Created high-fidelity wireframes in Figma, converted design mockups into functional React components, and conducted usability testing.",
-    skills: ["HTML5", "CSS3", "JavaScript", "Figma", "Git"]
+    description: "Worked on LISA AI, an intelligent learning assistant platform by LetsUpgrade. Contributed to building and refining the frontend interface, integrating AI-powered features, and improving user experience across the product.",
+    skills: ["React", "JavaScript", "AI Integration", "CSS", "REST APIs"]
   }
 ];
 
 export const education = [
   {
-    period: "2019 - 2023",
+    period: "2021 - Present",
     degree: "Bachelor of Technology in Computer Science & Engineering",
-    institution: "Visvesvaraya Technological University",
-    details: "Graduated with Honors. Specialization in Web Technologies and Human-Computer Interaction."
+    institution: "ITM Skills University",
+    details: "Currently pursuing B.Tech CSE with a focus on full-stack web development, UI/UX design, and modern software engineering practices."
+  },
+  {
+    period: "2023",
+    degree: "12th Standard (HSC)",
+    institution: "KSA Barns High School Junior College, Panvel",
+    details: "Completed 12th grade (Higher Secondary Certificate) from KSA Barns High School Junior College, Panvel."
+  },
+  {
+    period: "2021",
+    degree: "10th Standard (SSC)",
+    institution: "KSA Barns High School Junior College, Panvel",
+    details: "Completed 10th grade (Secondary School Certificate) from KSA Barns High School Junior College, Panvel."
   }
 ];
 
 export const contactDetails = {
   headline: "Let's build something remarkable together",
   subheading: "Whether you have a question, project inquiry, or just want to connect, feel free to drop a message!",
-  email: "disha.rao@example.com",
-  phone: "+91 98765 43210",
-  location: "Bangalore, Karnataka, India"
+  email: "raodisha33@gmail.com",
+  phone: "+91 89570 50747",
+  location: "Panvel, Navi Mumbai, India"
 };

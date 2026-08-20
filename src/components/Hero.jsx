@@ -1,87 +1,216 @@
-import React from 'react';
-import { ArrowRight, Download, Github, Linkedin, Twitter, Mail, Code2, Sparkles } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { ArrowRight, Github, Linkedin, Twitter, Mail, Download } from 'lucide-react';
 import { personalDetails } from '../data/portfolioData';
+import { useScramble } from '../hooks/useScramble';
+import MultilingualName, { MultilingualHello } from './MultilingualName';
 import './Hero.css';
 
-export default function Hero() {
+/* ── Magnetic button (preserved + improved) ─────────────── */
+function MagneticBtn({ children, className, href, style }) {
+  const ref     = useRef(null);
+  const isMobile = typeof window !== 'undefined' && !window.matchMedia('(pointer:fine)').matches;
+
+  const onMove = (e) => {
+    if (isMobile) return;
+    const el   = ref.current;
+    const rect = el.getBoundingClientRect();
+    const cx   = rect.left + rect.width  / 2;
+    const cy   = rect.top  + rect.height / 2;
+    const dx   = (e.clientX - cx) * 0.32;
+    const dy   = (e.clientY - cy) * 0.32;
+    el.style.transform  = `translate(${dx}px, ${dy}px)`;
+    el.style.transition = 'transform 0.1s ease';
+  };
+
+  const onLeave = () => {
+    const el = ref.current;
+    el.style.transform  = '';
+    el.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1)';
+  };
+
+  const Tag = href ? 'a' : 'button';
+  return (
+    <Tag ref={ref} href={href} className={className} style={style}
+         onMouseMove={onMove} onMouseLeave={onLeave}>
+      {children}
+    </Tag>
+  );
+}
+
+/* ── Parallax layer ──────────────────────────────────────── */
+function ParallaxLayer({ children, factor = 4, className = '' }) {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const isMobile = !window.matchMedia('(pointer:fine)').matches;
+    const isReduced = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if (isMobile || isReduced) return;
+
+    let targetX = 0, targetY = 0, currX = 0, currY = 0, rafId;
+
+    const onMove = (e) => {
+      const cx = window.innerWidth  / 2;
+      const cy = window.innerHeight / 2;
+      targetX  = ((e.clientX - cx) / cx) * factor;
+      targetY  = ((e.clientY - cy) / cy) * factor;
+    };
+
+    const tick = () => {
+      currX += (targetX - currX) * 0.06;
+      currY += (targetY - currY) * 0.06;
+      if (ref.current) {
+        ref.current.style.transform = `translate(${currX}px, ${currY}px)`;
+      }
+      rafId = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener('mousemove', onMove, { passive: true });
+    rafId = requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      cancelAnimationFrame(rafId);
+    };
+  }, [factor]);
+
+  return <div ref={ref} className={className}>{children}</div>;
+}
+
+export default function Hero({ ready }) {
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    if (!ready) return;
+    const t = setTimeout(() => setRevealed(true), 80);
+    return () => clearTimeout(t);
+  }, [ready]);
+
+  const firstName = useScramble(personalDetails.name.split(' ')[0], 200, 35, 800);
+
+  const ruledTopRef    = useRef(null);
+  const ruledBottomRef = useRef(null);
+  useEffect(() => {
+    if (!revealed) return;
+    setTimeout(() => ruledTopRef.current?.classList.add('line-revealed'),    50);
+    setTimeout(() => ruledBottomRef.current?.classList.add('line-revealed'), 1100);
+  }, [revealed]);
+
   return (
     <section id="home" className="hero-section">
-      <div className="hero-glow-bg"></div>
+      <div ref={ruledTopRef}    className="hero-ruled-top"    aria-hidden="true" />
+      <div ref={ruledBottomRef} className="hero-ruled-bottom" aria-hidden="true" />
 
-      <div className="container hero-grid">
-        <div className="hero-content">
-          <div className="status-badge">
-            <span className="status-dot"></span>
-            <span>{personalDetails.availability}</span>
-          </div>
+      {/* ── Background grid layer (slowest parallax) ── */}
+      <ParallaxLayer factor={2} className="hero-bg-grid" />
 
-          <h1 className="hero-title">
-            Hi, I'm <span className="text-gradient">{personalDetails.name}</span>
-          </h1>
+      {/* ── Decorative red accent shape (mid parallax) ── */}
+      <ParallaxLayer factor={8} className="hero-red-shape" />
 
-          <div className="hero-role">
-            {personalDetails.role}
-          </div>
-
-          <p className="hero-tagline">
-            {personalDetails.tagline} {personalDetails.aboutShort}
-          </p>
-
-          <div className="hero-cta-group">
-            <a href="#projects" className="btn btn-primary">
-              <span>Explore Projects</span>
-              <ArrowRight size={18} />
-            </a>
-
-            <a href="#contact" className="btn btn-secondary">
-              <Mail size={18} />
-              <span>Get In Touch</span>
-            </a>
-          </div>
-
-          <div className="hero-socials">
-            <span className="hero-social-label">Connect:</span>
-            <a href={personalDetails.github} target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="GitHub">
-              <Github size={18} />
-            </a>
-            <a href={personalDetails.linkedin} target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="LinkedIn">
-              <Linkedin size={18} />
-            </a>
-            <a href={personalDetails.twitter} target="_blank" rel="noopener noreferrer" className="social-icon-link" aria-label="Twitter">
-              <Twitter size={18} />
-            </a>
-          </div>
+      <div className="container">
+        {/* Index label */}
+        <div className={`hero-index-label hero-fade-in${revealed ? ' hero-fade-in--go' : ''}`}
+             style={{ transitionDelay: '0.5s' }}>
+          <span>Portfolio 2025</span>
+          <span>—</span>
+          <span>{personalDetails.location}</span>
         </div>
 
-        <div className="hero-visual">
-          <div className="hero-avatar-card glass-card">
-            {/* Top Right Floating Badge */}
-            <div className="floating-badge badge-top-right">
-              <Code2 size={16} color="#8b5cf6" />
-              <span>Full Stack Dev</span>
+        {/* ── Headline ── */}
+        <ParallaxLayer factor={4} className="hero-headline-wrap">
+          <div className="hero-intro-block" aria-label={`Hello, I'm ${personalDetails.name}`}>
+
+            {/* Line 1: greeting — glitches through languages */}
+            <div className="hero-headline-row">
+              <span className={`hero-clip-inner hero-greeting d1${revealed ? ' revealed' : ''}`}>
+                <MultilingualHello
+                  frameDelay={55}
+                  restDuration={3500}
+                  showScript={false}
+                  className="hero-hello"
+                />
+                <span className="hero-greeting-im">&nbsp;I&rsquo;m</span>
+              </span>
             </div>
 
-            {/* Bottom Left Floating Badge */}
-            <div className="floating-badge badge-bottom-left">
-              <Sparkles size={16} color="#06b6d4" />
-              <span>UI/UX Craftsman</span>
+            {/* Line 2: Disha [space] Rao — single centred line */}
+            <div className="hero-headline-row hero-name-row">
+              <span className={`hero-clip-inner d2${revealed ? ' revealed' : ''}`}>
+                <span className="hero-name-first">{firstName}</span>
+                <span className="hero-name-gap" aria-hidden="true" />
+                <MultilingualName
+                  frameDelay={55}
+                  restDuration={3500}
+                  showScript={true}
+                  className="hero-multilingual"
+                />
+              </span>
             </div>
 
-            <div className="avatar-circle">
-              DR
+          </div>
+        </ParallaxLayer>
+
+        {/* ── Lower bar ── */}
+        <div className={`hero-lower${revealed ? ' hero-lower--visible' : ''}`}>
+
+          <div className="hero-meta">
+            <div className={`hero-availability hero-fade-in${revealed ? ' hero-fade-in--go' : ''}`}
+                 style={{ transitionDelay: '0.65s' }}>
+              <span className="hero-availability-dot" aria-hidden="true" />
+              {personalDetails.availability}
             </div>
 
-            <h3 style={{ fontSize: '1.25rem', marginBottom: '0.25rem' }}>{personalDetails.name}</h3>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{personalDetails.location}</p>
+            <p className={`hero-role hero-fade-in${revealed ? ' hero-fade-in--go' : ''}`}
+               style={{ transitionDelay: '0.78s' }}>
+              {personalDetails.role}
+            </p>
 
-            <div className="tech-pills">
-              <span className="tech-pill">React.js</span>
-              <span className="tech-pill">Next.js</span>
-              <span className="tech-pill">TypeScript</span>
-              <span className="tech-pill">Node.js</span>
-              <span className="tech-pill">UI/UX</span>
+            <p className={`hero-tagline hero-fade-in${revealed ? ' hero-fade-in--go' : ''}`}
+               style={{ transitionDelay: '0.9s' }}>
+              {personalDetails.tagline}
+            </p>
+
+            <div className={`hero-socials hero-fade-in${revealed ? ' hero-fade-in--go' : ''}`}
+                 style={{ transitionDelay: '1.02s' }}>
+              {[
+                { href: personalDetails.github,           icon: <Github   size={16} />, label: 'GitHub'   },
+                { href: personalDetails.linkedin,          icon: <Linkedin size={16} />, label: 'LinkedIn' },
+                { href: personalDetails.twitter,           icon: <Twitter  size={16} />, label: 'Twitter'  },
+                { href: `mailto:${personalDetails.email}`, icon: <Mail     size={16} />, label: 'Email'    },
+              ].map(({ href, icon, label }) => (
+                <a key={label} href={href}
+                   target={href.startsWith('mailto') ? undefined : '_blank'}
+                   rel="noopener noreferrer"
+                   className="social-icon-link" aria-label={label}>
+                  {icon}
+                </a>
+              ))}
             </div>
           </div>
+
+          <div className={`hero-cta hero-fade-in${revealed ? ' hero-fade-in--go' : ''}`}
+               style={{ transitionDelay: '1.1s' }}>
+            <div className="hero-cta-group">
+              <MagneticBtn href="#projects" className="btn btn-primary">
+                View Work <ArrowRight size={16} />
+              </MagneticBtn>
+              <MagneticBtn href="#contact" className="btn btn-outline">
+                Get In Touch
+              </MagneticBtn>
+              <a
+                href="/resume.pdf"
+                download="Disha_Rao_Resume.pdf"
+                className="btn btn-resume"
+              >
+                <Download size={15} />
+                Resume
+              </a>
+            </div>
+            <span className="hero-scroll-hint">
+              <span className="hero-scroll-line" aria-hidden="true" />
+              Scroll to explore
+            </span>
+          </div>
+
         </div>
       </div>
     </section>
