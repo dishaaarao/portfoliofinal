@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
-import { personalDetails } from '../data/portfolioData';
+import { Menu, X, Download } from 'lucide-react';
 import './Navbar.css';
 
 export default function Navbar() {
@@ -11,7 +10,7 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
-      const sections  = ['home', 'about', 'skills', 'projects', 'experience', 'blogs', 'contact'];
+      const sections  = ['home','about','skills','projects','experience','blogs','contact'];
       const scrollPos = window.scrollY + 200;
       for (const id of sections) {
         const el = document.getElementById(id);
@@ -31,49 +30,45 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   const navLinks = [
+    { name: 'Home',       href: '#home'       },
     { name: 'About',      href: '#about'      },
-    { name: 'Skills',     href: '#skills'     },
     { name: 'Projects',   href: '#projects'   },
-    { name: 'Experience', href: '#experience' },
     { name: 'Blogs',      href: '#blogs'      },
     { name: 'Contact',    href: '#contact'    },
   ];
 
   return (
     <header className={`navbar-header${scrolled ? ' scrolled' : ''}`}>
-      <div className="container navbar-container">
+      <div className="navbar-container">
 
-        {/* Brand */}
-        <a href="#home" className="navbar-brand">
-          <span className="navbar-brand-accent">D</span>isha&nbsp;
-          <span className="navbar-brand-accent">R</span>ao
+        {/* Brand — cursive signature style */}
+        <a href="#home" className="navbar-brand" aria-label="Disha Rao home">
+          Disha Rao
         </a>
 
         {/* Desktop nav */}
-        <nav aria-label="Main navigation">
-          <ul className={`navbar-menu${mobileOpen ? ' open' : ''}`}>
-            {navLinks.map((link) => (
-              <li key={link.name}>
-                <a
-                  href={link.href}
-                  className={`navbar-link${activeSection === link.href.slice(1) ? ' active' : ''}`}
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {link.name}
-                </a>
-              </li>
-            ))}
-          </ul>
+        <nav className="navbar-nav" aria-label="Main navigation">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className={`navbar-link${activeSection === link.href.slice(1) ? ' active' : ''}`}
+              onClick={() => setMobileOpen(false)}
+            >
+              {link.name}
+            </a>
+          ))}
         </nav>
 
         {/* Actions */}
         <div className="navbar-actions">
           <a
-            href="#contact"
-            className="btn btn-primary hidden-mobile"
-            style={{ padding: '0.6rem 1.25rem', fontSize: '0.82rem' }}
+            href="/resume.pdf"
+            download="Disha_Rao_Resume.pdf"
+            className="navbar-cv-btn"
           >
-            Hire Me <ArrowUpRight size={14} />
+            <Download size={14} />
+            Download CV
           </a>
 
           <button
@@ -84,8 +79,26 @@ export default function Navbar() {
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
-
       </div>
+
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="navbar-mobile-menu">
+          {navLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className={`navbar-mobile-link${activeSection === link.href.slice(1) ? ' active' : ''}`}
+              onClick={() => setMobileOpen(false)}
+            >
+              {link.name}
+            </a>
+          ))}
+          <a href="/resume.pdf" download="Disha_Rao_Resume.pdf" className="navbar-cv-btn" style={{ width: 'fit-content' }}>
+            <Download size={14} /> Download CV
+          </a>
+        </div>
+      )}
     </header>
   );
 }

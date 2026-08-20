@@ -1,215 +1,100 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Github, Linkedin, Twitter, Mail, Download } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Download } from 'lucide-react';
 import { personalDetails } from '../data/portfolioData';
-import { useScramble } from '../hooks/useScramble';
-import MultilingualName, { MultilingualHello } from './MultilingualName';
 import './Hero.css';
-
-/* ── Magnetic button (preserved + improved) ─────────────── */
-function MagneticBtn({ children, className, href, style }) {
-  const ref     = useRef(null);
-  const isMobile = typeof window !== 'undefined' && !window.matchMedia('(pointer:fine)').matches;
-
-  const onMove = (e) => {
-    if (isMobile) return;
-    const el   = ref.current;
-    const rect = el.getBoundingClientRect();
-    const cx   = rect.left + rect.width  / 2;
-    const cy   = rect.top  + rect.height / 2;
-    const dx   = (e.clientX - cx) * 0.32;
-    const dy   = (e.clientY - cy) * 0.32;
-    el.style.transform  = `translate(${dx}px, ${dy}px)`;
-    el.style.transition = 'transform 0.1s ease';
-  };
-
-  const onLeave = () => {
-    const el = ref.current;
-    el.style.transform  = '';
-    el.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1)';
-  };
-
-  const Tag = href ? 'a' : 'button';
-  return (
-    <Tag ref={ref} href={href} className={className} style={style}
-         onMouseMove={onMove} onMouseLeave={onLeave}>
-      {children}
-    </Tag>
-  );
-}
-
-/* ── Parallax layer ──────────────────────────────────────── */
-function ParallaxLayer({ children, factor = 4, className = '' }) {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const isMobile = !window.matchMedia('(pointer:fine)').matches;
-    const isReduced = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
-    if (isMobile || isReduced) return;
-
-    let targetX = 0, targetY = 0, currX = 0, currY = 0, rafId;
-
-    const onMove = (e) => {
-      const cx = window.innerWidth  / 2;
-      const cy = window.innerHeight / 2;
-      targetX  = ((e.clientX - cx) / cx) * factor;
-      targetY  = ((e.clientY - cy) / cy) * factor;
-    };
-
-    const tick = () => {
-      currX += (targetX - currX) * 0.06;
-      currY += (targetY - currY) * 0.06;
-      if (ref.current) {
-        ref.current.style.transform = `translate(${currX}px, ${currY}px)`;
-      }
-      rafId = requestAnimationFrame(tick);
-    };
-
-    window.addEventListener('mousemove', onMove, { passive: true });
-    rafId = requestAnimationFrame(tick);
-
-    return () => {
-      window.removeEventListener('mousemove', onMove);
-      cancelAnimationFrame(rafId);
-    };
-  }, [factor]);
-
-  return <div ref={ref} className={className}>{children}</div>;
-}
 
 export default function Hero({ ready }) {
   const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
     if (!ready) return;
-    const t = setTimeout(() => setRevealed(true), 80);
+    const t = setTimeout(() => setRevealed(true), 100);
     return () => clearTimeout(t);
   }, [ready]);
 
-  const firstName = useScramble(personalDetails.name.split(' ')[0], 200, 35, 800);
-
-  const ruledTopRef    = useRef(null);
-  const ruledBottomRef = useRef(null);
-  useEffect(() => {
-    if (!revealed) return;
-    setTimeout(() => ruledTopRef.current?.classList.add('line-revealed'),    50);
-    setTimeout(() => ruledBottomRef.current?.classList.add('line-revealed'), 1100);
-  }, [revealed]);
+  const cls = (base) => `${base}${revealed ? ` ${base}--in` : ''}`;
 
   return (
     <section id="home" className="hero-section">
-      <div ref={ruledTopRef}    className="hero-ruled-top"    aria-hidden="true" />
-      <div ref={ruledBottomRef} className="hero-ruled-bottom" aria-hidden="true" />
 
-      {/* ── Background grid layer (slowest parallax) ── */}
-      <ParallaxLayer factor={2} className="hero-bg-grid" />
+      {/* Subtle grid lines — same as reference */}
+      <div className="hero-grid" aria-hidden="true" />
 
-      {/* ── Decorative red accent shape (mid parallax) ── */}
-      <ParallaxLayer factor={8} className="hero-red-shape" />
+      <div className="hero-body">
 
-      <div className="container">
-        {/* Index label */}
-        <div className={`hero-index-label hero-fade-in${revealed ? ' hero-fade-in--go' : ''}`}
-             style={{ transitionDelay: '0.5s' }}>
-          <span>Portfolio 2025</span>
-          <span>—</span>
-          <span>{personalDetails.location}</span>
+        {/* ── LEFT ─────────────────────────────────────── */}
+        <div className="hero-left">
+
+          <div className={cls('hero-role')}>
+            <p>Full-Stack Developer</p>
+            <p>&amp; UI/UX Designer</p>
+          </div>
+
+          {/* Curved arrow SVG */}
+          <svg className={cls('hero-arrow')} viewBox="0 0 130 90"
+               fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path className="hero-arrow__path"
+              d="M15 70 C 30 20, 80 10, 110 40"
+              stroke="var(--accent)" strokeWidth="2.8"
+              strokeLinecap="round" fill="none"
+              strokeDasharray="180" strokeDashoffset="180" />
+            <polyline className="hero-arrow__head"
+              points="100,30 110,40 100,52"
+              stroke="var(--accent)" strokeWidth="2.8"
+              strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          </svg>
+
+          {/* Stats row */}
+          <div className={cls('hero-stats')}>
+            {[
+              { value: '2+',  label1: 'Yrs',        label2: 'Experience'  },
+              { value: '10+', label1: 'Projects',    label2: 'Built'       },
+              { value: '3',   label1: 'Internships', label2: 'Completed'   },
+            ].map((s, i) => (
+              <div key={i} className="hero-stat">
+                <span className="hero-stat__val">{s.value}</span>
+                <span className="hero-stat__lbl">{s.label1}<br />{s.label2}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* ── Headline ── */}
-        <ParallaxLayer factor={4} className="hero-headline-wrap">
-          <div className="hero-intro-block" aria-label={`Hello, I'm ${personalDetails.name}`}>
-
-            {/* Line 1: greeting — glitches through languages */}
-            <div className="hero-headline-row">
-              <span className={`hero-clip-inner hero-greeting d1${revealed ? ' revealed' : ''}`}>
-                <MultilingualHello
-                  frameDelay={55}
-                  restDuration={3500}
-                  showScript={false}
-                  className="hero-hello"
-                />
-                <span className="hero-greeting-im">&nbsp;I&rsquo;m</span>
-              </span>
-            </div>
-
-            {/* Line 2: Disha [space] Rao — single centred line */}
-            <div className="hero-headline-row hero-name-row">
-              <span className={`hero-clip-inner d2${revealed ? ' revealed' : ''}`}>
-                <span className="hero-name-first">{firstName}</span>
-                <span className="hero-name-gap" aria-hidden="true" />
-                <MultilingualName
-                  frameDelay={55}
-                  restDuration={3500}
-                  showScript={true}
-                  className="hero-multilingual"
-                />
-              </span>
-            </div>
-
-          </div>
-        </ParallaxLayer>
-
-        {/* ── Lower bar ── */}
-        <div className={`hero-lower${revealed ? ' hero-lower--visible' : ''}`}>
-
-          <div className="hero-meta">
-            <div className={`hero-availability hero-fade-in${revealed ? ' hero-fade-in--go' : ''}`}
-                 style={{ transitionDelay: '0.65s' }}>
-              <span className="hero-availability-dot" aria-hidden="true" />
-              {personalDetails.availability}
-            </div>
-
-            <p className={`hero-role hero-fade-in${revealed ? ' hero-fade-in--go' : ''}`}
-               style={{ transitionDelay: '0.78s' }}>
-              {personalDetails.role}
-            </p>
-
-            <p className={`hero-tagline hero-fade-in${revealed ? ' hero-fade-in--go' : ''}`}
-               style={{ transitionDelay: '0.9s' }}>
-              {personalDetails.tagline}
-            </p>
-
-            <div className={`hero-socials hero-fade-in${revealed ? ' hero-fade-in--go' : ''}`}
-                 style={{ transitionDelay: '1.02s' }}>
-              {[
-                { href: personalDetails.github,           icon: <Github   size={16} />, label: 'GitHub'   },
-                { href: personalDetails.linkedin,          icon: <Linkedin size={16} />, label: 'LinkedIn' },
-                { href: personalDetails.twitter,           icon: <Twitter  size={16} />, label: 'Twitter'  },
-                { href: `mailto:${personalDetails.email}`, icon: <Mail     size={16} />, label: 'Email'    },
-              ].map(({ href, icon, label }) => (
-                <a key={label} href={href}
-                   target={href.startsWith('mailto') ? undefined : '_blank'}
-                   rel="noopener noreferrer"
-                   className="social-icon-link" aria-label={label}>
-                  {icon}
-                </a>
-              ))}
-            </div>
+        {/* ── CENTRE ───────────────────────────────────── */}
+        <div className="hero-centre">
+          {/* "Hey, There" behind photo */}
+          <div className={cls('hero-hey')} aria-hidden="true">
+            <span className="hero-hey__text">Hey, There</span>
           </div>
 
-          <div className={`hero-cta hero-fade-in${revealed ? ' hero-fade-in--go' : ''}`}
-               style={{ transitionDelay: '1.1s' }}>
-            <div className="hero-cta-group">
-              <MagneticBtn href="#projects" className="btn btn-primary">
-                View Work <ArrowRight size={16} />
-              </MagneticBtn>
-              <MagneticBtn href="#contact" className="btn btn-outline">
-                Get In Touch
-              </MagneticBtn>
-              <a
-                href="/resume.pdf"
-                download="Disha_Rao_Resume.pdf"
-                className="btn btn-resume"
-              >
-                <Download size={15} />
-                Resume
-              </a>
-            </div>
-            <span className="hero-scroll-hint">
-              <span className="hero-scroll-line" aria-hidden="true" />
-              Scroll to explore
-            </span>
+          {/* Cutout photo — mix-blend removes dark bg */}
+          <img
+            src="/remove.jpeg"
+            alt="Disha Rao"
+            className={cls('hero-photo')}
+            draggable={false}
+          />
+        </div>
+
+        {/* ── RIGHT ────────────────────────────────────── */}
+        <div className="hero-right">
+
+          {/* Oval tagline bubble */}
+          <div className={cls('hero-bubble')}>
+            <p>Crafting performant,<br />accessible and<br />visual-first experiences.</p>
           </div>
+
+          {/* Email pill */}
+          <a href={`mailto:${personalDetails.email}`}
+             className={cls('hero-email')}>
+            {personalDetails.email}
+          </a>
+
+          {/* Download CV */}
+          <a href="/resume.pdf" download="Disha_Rao_Resume.pdf"
+             className={cls('hero-cv-btn')}>
+            <Download size={14} />
+            Download CV
+          </a>
 
         </div>
       </div>

@@ -1,34 +1,38 @@
 /* ==========================================================================
-   Disha Rao Portfolio — Editorial Dark Design System
+   Disha Rao Portfolio — Light Minimal Design System
    ========================================================================== */
 
-/* Design Tokens — dark (default) */
+/* Add Dancing Script for handwritten greeting */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+/* Design Tokens — light (default) */
 :root {
-  /* Background */
-  --bg-primary:    #0a0a0a;
-  --bg-secondary:  #111111;
-  --bg-tertiary:   #1a1a1a;
-  --bg-surface:    #1f1f1f;
+  /* Background — warm off-white */
+  --bg-primary:    #f7f3ee;
+  --bg-secondary:  #ede8e0;
+  --bg-tertiary:   #e2ddd5;
+  --bg-surface:    #ffffff;
 
   /* Text */
-  --text-primary:  #f5f0e8;
-  --text-secondary:#9a9a8e;
-  --text-muted:    #555550;
+  --text-primary:  #1a1a1a;
+  --text-secondary:#555550;
+  --text-muted:    #9a9a8e;
 
-  /* Accent — single high-contrast red */
-  --accent:        #e63946;
-  --accent-hover:  #ff4d5a;
-  --accent-dim:    rgba(230, 57, 70, 0.12);
+  /* Accent — teal/green like dishantg */
+  --accent:        #0d9488;
+  --accent-hover:  #0f766e;
+  --accent-dim:    rgba(13, 148, 136, 0.12);
 
-  /* Borders — sharp ruled lines */
-  --border:        rgba(245, 240, 232, 0.1);
-  --border-strong: rgba(245, 240, 232, 0.25);
-  --border-accent: #e63946;
+  /* Borders */
+  --border:        rgba(0, 0, 0, 0.08);
+  --border-strong: rgba(0, 0, 0, 0.18);
+  --border-accent: #0d9488;
 
   /* Typography */
-  --font-display: 'Space Grotesk', sans-serif;
-  --font-body:    'DM Sans', sans-serif;
-  --font-mono:    'Space Mono', monospace;
+  --font-display:      'Space Grotesk', sans-serif;
+  --font-body:         'DM Sans', sans-serif;
+  --font-mono:         'Space Mono', monospace;
+  --font-handwriting:  'Dancing Script', cursive;
 
   /* Spacing */
   --section-gap: 7rem;
@@ -38,29 +42,9 @@
   --t-normal: 0.25s ease;
   --t-slow:   0.4s ease;
 
-  /* Sharp radius only */
-  --radius-sm: 2px;
-  --radius-md: 4px;
-}
-
-/* ── Light mode — must come AFTER :root to override ────── */
-[data-theme="light"] {
-  --bg-primary:    #f5f0e8;
-  --bg-secondary:  #ede8e0;
-  --bg-tertiary:   #e2ddd5;
-  --bg-surface:    #d8d3cb;
-
-  --text-primary:  #0a0a0a;
-  --text-secondary:#4a4a44;
-  --text-muted:    #8a8a82;
-
-  --accent:        #c0392b;
-  --accent-hover:  #e63946;
-  --accent-dim:    rgba(192, 57, 43, 0.1);
-
-  --border:        rgba(10, 10, 10, 0.12);
-  --border-strong: rgba(10, 10, 10, 0.28);
-  --border-accent: #c0392b;
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
 }
 
 /* ── Global Reset ─────────────────────────────────────── */
