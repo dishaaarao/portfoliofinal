@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar      from './components/Navbar';
 import Hero        from './components/Hero';
 import About       from './components/About';
@@ -15,21 +15,12 @@ import ThemePanel   from './components/ThemePanel';
 import { useReveal, useSectionLabel } from './hooks/useReveal';
 
 export default function App() {
-  const [theme, setTheme]       = useState('dark');
   const [toasts, setToasts]     = useState([]);
   const [ready, setReady]       = useState(false);   // loader done
 
-  // Apply theme
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
   // Global scroll-reveal & section-label line-draws
-  // (fire after loader is gone so elements are in their initial hidden state)
   useReveal(null, 0.1);
   useSectionLabel();
-
-  const toggleTheme = () => setTheme((p) => (p === 'dark' ? 'light' : 'dark'));
 
   const showToast = (message) => {
     const id = Date.now();
@@ -48,7 +39,7 @@ export default function App() {
 
       {/* ── Main shell ──────────────────────────────── */}
       <div className="app-shell" style={{ visibility: ready ? 'visible' : 'hidden' }}>
-        <Navbar theme={theme} toggleTheme={toggleTheme} />
+        <Navbar />
         <main>
           <Hero       ready={ready} />
           <About />

@@ -39,6 +39,12 @@ export default function ThemePanel() {
   const [accent, setAccent] = useState('#e63946');
   const [bgMode, setBgMode] = useState(0);
   const [custom, setCustom] = useState('#e63946');
+  const [isDark, setIsDark] = useState(true);
+
+  const applyLightDark = (dark) => {
+    setIsDark(dark);
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  };
 
   const applyAccent = (hex) => {
     setAccent(hex);
@@ -63,6 +69,7 @@ export default function ThemePanel() {
   const reset = () => {
     applyAccent('#e63946');
     applyBg(0);
+    applyLightDark(true);
   };
 
   return (
@@ -153,6 +160,25 @@ export default function ThemePanel() {
         <div className="tp-preview">
           <div className="tp-preview__bar" style={{ background: accent }} />
           <span className="tp-preview__text" style={{ color: accent }}>Preview</span>
+        </div>
+
+        {/* Dark / Light mode */}
+        <div className="tp-section">
+          <div className="tp-section__label">Mode</div>
+          <div className="tp-mode-row">
+            <button
+              className={`tp-mode-btn${isDark ? ' tp-mode-btn--active' : ''}`}
+              onClick={() => applyLightDark(true)}
+            >
+              🌙 Dark
+            </button>
+            <button
+              className={`tp-mode-btn${!isDark ? ' tp-mode-btn--active' : ''}`}
+              onClick={() => applyLightDark(false)}
+            >
+              ☀️ Light
+            </button>
+          </div>
         </div>
 
         {/* Reset */}

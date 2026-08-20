@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Sun, Moon, Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { personalDetails } from '../data/portfolioData';
 import './Navbar.css';
 
-export default function Navbar({ theme, toggleTheme }) {
-  const [scrolled, setScrolled]       = useState(false);
-  const [mobileOpen, setMobileOpen]   = useState(false);
+export default function Navbar() {
+  const [scrolled,      setScrolled]      = useState(false);
+  const [mobileOpen,    setMobileOpen]    = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
-
       const sections  = ['home', 'about', 'skills', 'projects', 'experience', 'contact'];
       const scrollPos = window.scrollY + 200;
       for (const id of sections) {
@@ -22,22 +21,21 @@ export default function Navbar({ theme, toggleTheme }) {
         }
       }
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
   const navLinks = [
-    { name: 'About',      href: '#about' },
-    { name: 'Skills',     href: '#skills' },
-    { name: 'Projects',   href: '#projects' },
+    { name: 'About',      href: '#about'      },
+    { name: 'Skills',     href: '#skills'     },
+    { name: 'Projects',   href: '#projects'   },
     { name: 'Experience', href: '#experience' },
-    { name: 'Contact',    href: '#contact' },
+    { name: 'Contact',    href: '#contact'    },
   ];
 
   return (
@@ -50,7 +48,7 @@ export default function Navbar({ theme, toggleTheme }) {
           <span className="navbar-brand-accent">R</span>ao
         </a>
 
-        {/* Nav */}
+        {/* Desktop nav */}
         <nav aria-label="Main navigation">
           <ul className={`navbar-menu${mobileOpen ? ' open' : ''}`}>
             {navLinks.map((link) => (
@@ -69,23 +67,18 @@ export default function Navbar({ theme, toggleTheme }) {
 
         {/* Actions */}
         <div className="navbar-actions">
-          <button
-            className="theme-toggle-btn"
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
+          <a
+            href="#contact"
+            className="btn btn-primary hidden-mobile"
+            style={{ padding: '0.6rem 1.25rem', fontSize: '0.82rem' }}
           >
-            {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
-          </button>
-
-          <a href="#contact" className="btn btn-primary hidden-mobile" style={{ padding: '0.6rem 1.25rem', fontSize: '0.82rem' }}>
             Hire Me <ArrowUpRight size={14} />
           </a>
 
           <button
             className="mobile-toggle-btn"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-            style={{ zIndex: 999 }}
+            onClick={() => setMobileOpen(o => !o)}
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>

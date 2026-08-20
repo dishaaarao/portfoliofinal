@@ -380,35 +380,27 @@ a {
 [data-reveal-delay="8"]  { transition-delay: 0.74s; }
 
 /* ── Custom Cursor ────────────────────────────────────── */
-/* Only hide cursor on non-interactive elements.
-   Interactive elements MUST keep pointer-events intact.    */
-body {
-  cursor: none;
+/* Custom cursor — hide native, pointer-events always preserved */
+body { cursor: none; }
+
+/* Restore default pointer on every interactive element so clicks always work */
+a, button, [role="button"], input, textarea, select, label,
+.filter-btn, .project-row, .exp-row, .project-details-btn,
+.project-icon-link, .social-icon-link, .navbar-link,
+.navbar-brand, .footer-links a, .footer-brand-name,
+.mobile-toggle-btn, .modal-close-btn, .back-to-top-btn,
+.cb-toggle, .cb-send, .cb-suggestion, .tp-toggle,
+.tp-swatch, .tp-bg-btn, .tp-mode-btn, .tp-reset,
+.sfc-wrap, .stat-card, .btn, .btn-resume,
+.contact-form input, .contact-form textarea,
+.contact-form button {
+  cursor: none;          /* hide native cursor */
+  pointer-events: auto !important; /* always clickable */
 }
-/* Hide native cursor on non-interactive elements only */
-p, h1, h2, h3, h4, h5, h6, span, div, section, main,
-article, header, footer, nav, ul, li, figure, img,
-.hero-section, .hero-headline, .hero-index-label,
-.hero-tagline, .hero-role, .hero-scroll-hint,
-.section-label, .section-title, .section-description,
-.about-bio-paragraph, .stat-cell, .stat-value, .stat-label,
-.value-cell, .value-desc, .skill-name, .skill-highlight,
-.project-num, .project-subtitle, .project-category-pill,
-.exp-period, .exp-desc, .exp-location, .edu-details,
-.footer-desc, .footer-col-title, .loader-text {
-  cursor: none;
-}
-/* Explicitly restore pointer cursor on all interactive elements */
-a, button, [role="button"],
-input, textarea, select, label,
-.filter-btn, .project-row, .exp-row, .edu-row,
-.contact-method, .back-to-top-btn, .skill-row,
-.theme-toggle-btn, .mobile-toggle-btn, .modal-close-btn,
-.project-icon-link, .project-details-btn,
-.social-icon-link, .navbar-link, .navbar-brand,
-.footer-brand-name, .footer-links a {
-  cursor: none; /* still hide native, our dot handles it */
-  pointer-events: auto !important;
+
+/* Touch/coarse devices — show default cursor */
+@media (pointer: coarse) {
+  body, *, *::before, *::after { cursor: auto !important; }
 }
 
 .cursor-dot {
