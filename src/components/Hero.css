@@ -134,9 +134,8 @@
   mix-blend-mode: multiply;
   filter: contrast(1.06) saturate(0.88) brightness(1.02);
   user-select: none; -webkit-user-drag: none;
-  object-fit: cover;
-  object-position: center 35%;
-  clip-path: inset(17% 0 15% 0);
+  object-fit: contain;
+  object-position: center bottom;
 }
 
 /* ── RIGHT column ── */

@@ -54,7 +54,7 @@ export default function Hero({ ready }) {
           <div className={c('hero__hey')} aria-hidden="true">
             <span className="hero__hey-text">Hey, I'm Disha</span>
           </div>
-          <img src="/disha.png" alt="Disha Rao"
+          <img src="/WhatsApp_Image_2026-08-10_at_18.35.07-removebg-preview.png" alt="Disha Rao"
                className={c('hero__photo')} draggable={false}/>
         </div>
 
