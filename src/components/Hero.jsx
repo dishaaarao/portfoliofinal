@@ -1,102 +1,78 @@
 import React, { useEffect, useState } from 'react';
-import { Download } from 'lucide-react';
 import { personalDetails } from '../data/portfolioData';
 import './Hero.css';
 
 export default function Hero({ ready }) {
-  const [revealed, setRevealed] = useState(false);
-
+  const [go, setGo] = useState(false);
   useEffect(() => {
     if (!ready) return;
-    const t = setTimeout(() => setRevealed(true), 100);
+    const t = setTimeout(() => setGo(true), 80);
     return () => clearTimeout(t);
   }, [ready]);
-
-  const cls = (base) => `${base}${revealed ? ` ${base}--in` : ''}`;
+  const c = n => `${n}${go ? ` ${n}--go` : ''}`;
 
   return (
-    <section id="home" className="hero-section">
+    <section id="home" className="hero">
+      <div className="hero__grid" aria-hidden="true" />
+      <div className="hero__wrap">
 
-      {/* Subtle grid lines — same as reference */}
-      <div className="hero-grid" aria-hidden="true" />
-
-      <div className="hero-body">
-
-        {/* ── LEFT ─────────────────────────────────────── */}
-        <div className="hero-left">
-
-          <div className={cls('hero-role')}>
+        {/* ── LEFT ── */}
+        <aside className="hero__left">
+          <div className={c('hero__role')}>
             <p>Full-Stack Developer</p>
             <p>&amp; UI/UX Designer</p>
           </div>
 
-          {/* Curved arrow SVG */}
-          <svg className={cls('hero-arrow')} viewBox="0 0 130 90"
-               fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path className="hero-arrow__path"
-              d="M15 70 C 30 20, 80 10, 110 40"
-              stroke="var(--accent)" strokeWidth="2.8"
+          <svg className={c('hero__arrow')} viewBox="0 0 130 100"
+               fill="none" aria-hidden="true">
+            <path className="hero__arrow-path"
+              d="M20 80 C 35 25, 85 8, 115 42"
+              stroke="var(--accent)" strokeWidth="2.6"
               strokeLinecap="round" fill="none"
-              strokeDasharray="180" strokeDashoffset="180" />
-            <polyline className="hero-arrow__head"
-              points="100,30 110,40 100,52"
-              stroke="var(--accent)" strokeWidth="2.8"
-              strokeLinecap="round" strokeLinejoin="round" fill="none" />
+              strokeDasharray="190" strokeDashoffset="190"/>
+            <polyline points="104,31 115,42 104,55"
+              stroke="var(--accent)" strokeWidth="2.6"
+              strokeLinecap="round" strokeLinejoin="round" fill="none"/>
           </svg>
 
-          {/* Stats row */}
-          <div className={cls('hero-stats')}>
+          <div className={c('hero__stats')}>
             {[
-              { value: '2+',  label1: 'Yrs',        label2: 'Experience'  },
-              { value: '10+', label1: 'Projects',    label2: 'Built'       },
-              { value: '3',   label1: 'Internships', label2: 'Completed'   },
-            ].map((s, i) => (
-              <div key={i} className="hero-stat">
-                <span className="hero-stat__val">{s.value}</span>
-                <span className="hero-stat__lbl">{s.label1}<br />{s.label2}</span>
+              { v:'3+',  l1:'Projects',    l2:'Completed'  },
+              { v:'10+', l1:'Technologies',l2:'Mastered'   },
+              { v:'2+',  l1:'Years',       l2:'Learning'   },
+            ].map((s,i) => (
+              <div key={i} className="hero__stat">
+                <span className="hero__stat-v">{s.v}</span>
+                <span className="hero__stat-l">{s.l1}<br/>{s.l2}</span>
               </div>
             ))}
           </div>
+        </aside>
+
+        {/* ── CENTRE ── */}
+        <div className="hero__centre">
+          <div className={c('hero__hey')} aria-hidden="true">
+            <span className="hero__hey-text">Hey, I'm Disha</span>
+          </div>
+          <img src="/disha.png" alt="Disha Rao"
+               className={c('hero__photo')} draggable={false}/>
         </div>
 
-        {/* ── CENTRE ───────────────────────────────────── */}
-        <div className="hero-centre">
-          {/* "Hey, There" behind photo */}
-          <div className={cls('hero-hey')} aria-hidden="true">
-            <span className="hero-hey__text">Hey, There</span>
+        {/* ── RIGHT ── */}
+        <aside className="hero__right">
+          <div className={c('hero__bubble')}>
+            <p>Turning ideas into intelligent digital experiences.</p>
           </div>
-
-          {/* Cutout photo — mix-blend removes dark bg */}
-          <img
-            src="/remove.jpeg"
-            alt="Disha Rao"
-            className={cls('hero-photo')}
-            draggable={false}
-          />
-        </div>
-
-        {/* ── RIGHT ────────────────────────────────────── */}
-        <div className="hero-right">
-
-          {/* Oval tagline bubble */}
-          <div className={cls('hero-bubble')}>
-            <p>Crafting performant,<br />accessible and<br />visual-first experiences.</p>
-          </div>
-
-          {/* Email pill */}
           <a href={`mailto:${personalDetails.email}`}
-             className={cls('hero-email')}>
+             className={c('hero__email')}>
             {personalDetails.email}
           </a>
-
-          {/* Download CV */}
           <a href="/resume.pdf" download="Disha_Rao_Resume.pdf"
-             className={cls('hero-cv-btn')}>
-            <Download size={14} />
+             className={c('hero__dlcv')}>
             Download CV
           </a>
+        </aside>
 
-        </div>
       </div>
     </section>
   );

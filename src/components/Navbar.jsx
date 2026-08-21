@@ -8,20 +8,19 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 40);
-      const sections  = ['home','about','skills','projects','experience','blogs','contact'];
-      const scrollPos = window.scrollY + 200;
-      for (const id of sections) {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 30);
+      const ids = ['home','about','projects','skills','experience','blogs','contact'];
+      const pos = window.scrollY + 120;
+      for (const id of ids) {
         const el = document.getElementById(id);
-        if (el && scrollPos >= el.offsetTop && scrollPos < el.offsetTop + el.offsetHeight) {
-          setActiveSection(id);
-          break;
+        if (el && pos >= el.offsetTop && pos < el.offsetTop + el.offsetHeight) {
+          setActiveSection(id); break;
         }
       }
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
@@ -29,74 +28,49 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
-  const navLinks = [
+  const links = [
     { name: 'Home',       href: '#home'       },
     { name: 'About',      href: '#about'      },
     { name: 'Projects',   href: '#projects'   },
-    { name: 'Blogs',      href: '#blogs'      },
+    { name: 'Skills',     href: '#skills'     },
+    { name: 'Experience', href: '#experience' },
     { name: 'Contact',    href: '#contact'    },
   ];
 
   return (
-    <header className={`navbar-header${scrolled ? ' scrolled' : ''}`}>
-      <div className="navbar-container">
+    <header className={`nb${scrolled ? ' nb--scrolled' : ''}`}>
+      <div className="nb__inner">
+        <a href="#home" className="nb__brand" aria-label="Disha Rao">Disha Rao</a>
 
-        {/* Brand — cursive signature style */}
-        <a href="#home" className="navbar-brand" aria-label="Disha Rao home">
-          Disha Rao
-        </a>
-
-        {/* Desktop nav */}
-        <nav className="navbar-nav" aria-label="Main navigation">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={`navbar-link${activeSection === link.href.slice(1) ? ' active' : ''}`}
-              onClick={() => setMobileOpen(false)}
-            >
-              {link.name}
+        <nav className="nb__nav" aria-label="Main">
+          {links.map(l => (
+            <a key={l.name} href={l.href}
+               className={`nb__link${activeSection === l.href.slice(1) ? ' nb__link--active' : ''}`}
+               onClick={() => setMobileOpen(false)}>
+              {l.name}
             </a>
           ))}
         </nav>
 
-        {/* Actions */}
-        <div className="navbar-actions">
-          <a
-            href="/resume.pdf"
-            download="Disha_Rao_Resume.pdf"
-            className="navbar-cv-btn"
-          >
-            <Download size={14} />
+        <div className="nb__actions">
+          <a href="/resume.pdf" download="Disha_Rao_Resume.pdf" className="nb__cv">
             Download CV
           </a>
-
-          <button
-            className="mobile-toggle-btn"
-            onClick={() => setMobileOpen(o => !o)}
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-          >
-            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          <button className="nb__burger" onClick={() => setMobileOpen(o => !o)}
+                  aria-label="Toggle menu">
+            {mobileOpen ? <X size={22}/> : <Menu size={22}/>}
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
       {mobileOpen && (
-        <div className="navbar-mobile-menu">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className={`navbar-mobile-link${activeSection === link.href.slice(1) ? ' active' : ''}`}
-              onClick={() => setMobileOpen(false)}
-            >
-              {link.name}
-            </a>
+        <div className="nb__mobile">
+          {links.map(l => (
+            <a key={l.name} href={l.href} className="nb__mobile-link"
+               onClick={() => setMobileOpen(false)}>{l.name}</a>
           ))}
-          <a href="/resume.pdf" download="Disha_Rao_Resume.pdf" className="navbar-cv-btn" style={{ width: 'fit-content' }}>
-            <Download size={14} /> Download CV
-          </a>
+          <a href="/resume.pdf" download="Disha_Rao_Resume.pdf"
+             className="nb__cv" style={{width:'fit-content'}}>Download CV</a>
         </div>
       )}
     </header>
