@@ -42,6 +42,7 @@ export default function Hero({ ready }) {
               { v:'2+',  l1:'Years',       l2:'Learning'   },
             ].map((s,i) => (
               <div key={i} className="hero__stat">
+                <div className="hero__stat-check">✓</div>
                 <span className="hero__stat-v">{s.v}</span>
                 <span className="hero__stat-l">{s.l1}<br/>{s.l2}</span>
               </div>
