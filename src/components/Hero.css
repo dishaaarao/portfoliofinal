@@ -106,10 +106,10 @@
 /* Handwritten "Hey, There" sits behind the photo */
 .hero__hey {
   position: absolute;
-  top: 2%; left: 50%;
+  top: -2%; left: 50%;
   transform: translateX(-50%);
   width: 140%; text-align: center;
-  z-index: 2; pointer-events: none;
+  z-index: 1; pointer-events: none;
 }
 .hero__hey--go { transform: translateX(-50%) !important; }
 
