@@ -129,8 +129,8 @@
 .hero__photo {
   position: relative; z-index: 2;
   height: 98%;
-  max-height: 1040px;
-  width: auto; max-width: 130%;
+  max-height: 1560px;
+  width: auto; max-width: 195%;
   display: block;
   mix-blend-mode: multiply;
   filter: contrast(1.06) saturate(0.88) brightness(1.02);
@@ -193,7 +193,7 @@
     gap: 1.5rem;
   }
   .hero__centre { grid-area: centre; height: 70vw; max-height: 520px; padding-top: 1.2rem; }
-  .hero__photo { height: 98%; max-height: 650px; max-width: 125%; }
+  .hero__photo { height: 98%; max-height: 975px; max-width: 187%; }
   .hero__left   { grid-area: left; padding-bottom: 1.5rem; }
   .hero__right  { grid-area: right; padding-bottom: 1.5rem; }
 }
@@ -204,7 +204,7 @@
     padding: 1rem 1.5rem 1.5rem; gap: 2rem;
   }
   .hero__centre { height: 90vw; max-height: 450px; padding-top: 0.8rem; }
-  .hero__photo { height: 98%; max-height: 560px; max-width: 120%; }
+  .hero__photo { height: 98%; max-height: 840px; max-width: 180%; }
   .hero__left, .hero__right { padding-bottom: 0; padding-left: 0; }
   .hero__bubble { width: 165px; min-height: 90px; }
   .hero__hey-text { font-size: 3.2rem; }
