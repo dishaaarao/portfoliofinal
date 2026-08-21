@@ -128,9 +128,9 @@
 /* Photo — tall, fills the column, multiply removes bg on light page */
 .hero__photo {
   position: relative; z-index: 2;
-  height: 75%;
-  max-height: 560px;
-  width: auto; max-width: 95%;
+  height: 95%;
+  max-height: 750px;
+  width: auto; max-width: 100%;
   display: block;
   mix-blend-mode: multiply;
   filter: contrast(1.06) saturate(0.88) brightness(1.02);
@@ -192,8 +192,8 @@
     grid-template-areas: "centre centre" "left right";
     gap: 1.5rem;
   }
-  .hero__centre { grid-area: centre; height: 60vw; max-height: 450px; padding-top: 1.5rem; }
-  .hero__photo { height: 90%; max-height: 420px; }
+  .hero__centre { grid-area: centre; height: 65vw; max-height: 500px; padding-top: 1.5rem; }
+  .hero__photo { height: 95%; max-height: 480px; }
   .hero__left   { grid-area: left; padding-bottom: 2rem; }
   .hero__right  { grid-area: right; padding-bottom: 2rem; }
 }
@@ -203,8 +203,8 @@
     grid-template-areas: "centre" "left" "right";
     padding: 1rem 1.5rem 2rem; gap: 2rem;
   }
-  .hero__centre { height: 75vw; max-height: 380px; padding-top: 1rem; }
-  .hero__photo { height: 90%; max-height: 340px; }
+  .hero__centre { height: 85vw; max-height: 420px; padding-top: 1rem; }
+  .hero__photo { height: 95%; max-height: 400px; }
   .hero__left, .hero__right { padding-bottom: 0; padding-left: 0; }
   .hero__bubble { width: 165px; min-height: 90px; }
   .hero__hey-text { font-size: 3.2rem; }
