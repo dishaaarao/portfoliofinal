@@ -22,7 +22,7 @@
 .hero__wrap {
   position: relative; z-index: 1;
   width: 100%; max-width: 1200px;
-  margin: 0 auto; padding: 0 2.5rem 3.5rem;
+  margin: 0 auto; padding: 0 2.5rem 2.5rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: flex-end;
@@ -63,7 +63,7 @@
 .hero__left {
   display: flex; flex-direction: column;
   justify-content: flex-end;
-  gap: 1.5rem; padding-bottom: 5rem;
+  gap: 1.5rem; padding-bottom: 4rem;
 }
 
 .hero__role p {
@@ -95,7 +95,7 @@
   position: relative;
   display: flex; align-items: center; justify-content: center;
   height: calc(100vh - 70px);
-  padding-top: 2rem;
+  padding-top: 1.5rem;
 }
 
 /* Handwritten "Hey, There" sits behind the photo */
@@ -128,8 +128,8 @@
 /* Photo — tall, fills the column, multiply removes bg on light page */
 .hero__photo {
   position: relative; z-index: 2;
-  height: 95%;
-  max-height: 750px;
+  height: 98%;
+  max-height: 800px;
   width: auto; max-width: 100%;
   display: block;
   mix-blend-mode: multiply;
@@ -143,7 +143,7 @@
 .hero__right {
   display: flex; flex-direction: column;
   justify-content: flex-end; align-items: flex-start;
-  gap: 1.2rem; padding-bottom: 5rem; padding-left: .5rem;
+  gap: 1.2rem; padding-bottom: 4rem; padding-left: .5rem;
 }
 
 /* Oval tagline bubble */
@@ -192,19 +192,19 @@
     grid-template-areas: "centre centre" "left right";
     gap: 1.5rem;
   }
-  .hero__centre { grid-area: centre; height: 65vw; max-height: 500px; padding-top: 1.5rem; }
-  .hero__photo { height: 95%; max-height: 480px; }
-  .hero__left   { grid-area: left; padding-bottom: 2rem; }
-  .hero__right  { grid-area: right; padding-bottom: 2rem; }
+  .hero__centre { grid-area: centre; height: 70vw; max-height: 520px; padding-top: 1.2rem; }
+  .hero__photo { height: 98%; max-height: 500px; }
+  .hero__left   { grid-area: left; padding-bottom: 1.5rem; }
+  .hero__right  { grid-area: right; padding-bottom: 1.5rem; }
 }
 @media (max-width: 600px) {
   .hero__wrap {
     grid-template-columns: 1fr;
     grid-template-areas: "centre" "left" "right";
-    padding: 1rem 1.5rem 2rem; gap: 2rem;
+    padding: 1rem 1.5rem 1.5rem; gap: 2rem;
   }
-  .hero__centre { height: 85vw; max-height: 420px; padding-top: 1rem; }
-  .hero__photo { height: 95%; max-height: 400px; }
+  .hero__centre { height: 90vw; max-height: 450px; padding-top: 0.8rem; }
+  .hero__photo { height: 98%; max-height: 430px; }
   .hero__left, .hero__right { padding-bottom: 0; padding-left: 0; }
   .hero__bubble { width: 165px; min-height: 90px; }
   .hero__hey-text { font-size: 3.2rem; }
