@@ -1,6 +1,6 @@
 .hero {
   min-height: 100vh;
-  background: #f7f3ee;
+  background: rgb(245, 244, 239);
   position: relative;
   overflow: visible;
   display: flex;
@@ -13,9 +13,16 @@
   position: absolute; inset: 0; z-index: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(0,0,0,.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,0,0,.055) 1px, transparent 1px);
-  background-size: 80px 80px;
+    linear-gradient(rgb(224, 222, 216) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(224, 222, 216) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.hero__grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(70% 70%, transparent -50%, rgb(245, 244, 239) 100%);
 }
 
 /* 3-col layout */
