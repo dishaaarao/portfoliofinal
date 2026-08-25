@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
 import { projects, projectCategories } from '../data/portfolioData';
 import ProjectModal from './ProjectModal';
+import { ColorfulBentoGrid } from './ui/colorful-bento-grid';
 import './Projects.css';
 
 /* Stagger-reveal project rows when the list enters viewport */
@@ -58,9 +59,13 @@ export default function Projects() {
     <section id="projects" className="section">
       <div className="container">
 
+        {/* Colorful Bento Grid */}
+        <ColorfulBentoGrid />
+
+        {/* Project rows header */}
         <div
           style={{ display: 'flex', justifyContent: 'space-between',
-                   alignItems: 'flex-end', marginBottom: '3rem',
+                   alignItems: 'flex-end', marginBottom: '2rem', marginTop: '4rem',
                    flexWrap: 'wrap', gap: '1.5rem' }}
           data-reveal
         >
