@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Navbar      from './components/Navbar';
 import Hero        from './components/Hero';
 import About       from './components/About';
+import Testimonials  from './components/Testimonials';
 import Skills      from './components/Skills';
 import Projects    from './components/Projects';
 import Blogs      from './components/Blogs';
@@ -44,6 +45,7 @@ export default function App() {
         <main>
           <Hero       ready={ready} />
           <About />
+          <Testimonials />
           <Skills />
           <Projects />
           <Experience />
