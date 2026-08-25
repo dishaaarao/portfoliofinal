@@ -2,7 +2,15 @@
    Disha Rao Portfolio — Light Minimal Design System
    ========================================================================== */
 
-/* Add Dancing Script for handwritten greeting */
+/* @font-face for exact Brittany Signature font from reference */
+@font-face {
+  font-family: 'Brittany Signature';
+  src: url('/fonts/BrittanySignature.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
 
 /* Design Tokens — light (default) */
@@ -32,7 +40,7 @@
   --font-display:      'Space Grotesk', sans-serif;
   --font-body:         'DM Sans', sans-serif;
   --font-mono:         'Space Mono', monospace;
-  --font-handwriting:  'Dancing Script', cursive;
+  --font-handwriting:  'Brittany Signature', 'Dancing Script', cursive;
 
   /* Spacing */
   --section-gap: 7rem;

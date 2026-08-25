@@ -33,7 +33,7 @@
   border-radius: 6px; transition: color .2s, background .2s;
   white-space: nowrap;
 }
-.nb__link:hover { color: var(--text-primary); background: var(--bg-secondary); }
+.nb__link:hover { color: var(--accent); background: transparent; }
 .nb__link--active { color: var(--accent); font-weight: 600; }
 .nb__actions {
   display: flex; align-items: center;

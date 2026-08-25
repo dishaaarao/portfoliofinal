@@ -20,19 +20,44 @@ export default function Hero({ ready }) {
         <aside className="hero__left">
           <div className={c('hero__role')}>
             <p>Full-Stack Developer</p>
-            <p>&amp; UI/UX Designer</p>
+            <p><span className="hero__role-pipe">|</span> UI/UX Designer</p>
           </div>
 
-          <svg className={c('hero__arrow')} viewBox="0 0 130 100"
-               fill="none" aria-hidden="true">
-            <path className="hero__arrow-path"
-              d="M20 80 C 35 25, 85 8, 115 42"
-              stroke="var(--accent)" strokeWidth="2.6"
-              strokeLinecap="round" fill="none"
-              strokeDasharray="190" strokeDashoffset="190"/>
-            <polyline points="104,31 115,42 104,55"
-              stroke="var(--accent)" strokeWidth="2.6"
-              strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+          <svg className={c('hero__arrow')} viewBox="0 0 220 100" fill="none" aria-hidden="true">
+            <defs>
+              <filter id="brush-stroke" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" result="noise" />
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2" xChannelSelector="R" yChannelSelector="G" />
+              </filter>
+            </defs>
+            <g filter="url(#brush-stroke)">
+              {/* Secondary paint texture stem */}
+              <path
+                className="hero__arrow-accent"
+                d="M 193 87 C 133 87, 34 67, 34 20"
+                stroke="#0d9488"
+                strokeWidth="2.5"
+                strokeOpacity="0.45"
+                strokeLinecap="round"
+              />
+              {/* Main painted stroke stem entering vertically into middle of /\ */}
+              <path
+                className="hero__arrow-stem"
+                d="M 190 84 C 130 84, 32 65, 32 18"
+                stroke="#0d9488"
+                strokeWidth="4.8"
+                strokeLinecap="round"
+              />
+              {/* Symmetrical painted arrowhead centered over the stem */}
+              <path
+                className="hero__arrow-head1"
+                d="M 17 34 Q 23 24, 32 18 Q 41 24, 47 34"
+                stroke="#0d9488"
+                strokeWidth="4.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </g>
           </svg>
 
           <div className={c('hero__stats')}>
@@ -42,7 +67,6 @@ export default function Hero({ ready }) {
               { v:'2+',  l1:'Years',       l2:'Learning'   },
             ].map((s,i) => (
               <div key={i} className="hero__stat">
-                <div className="hero__stat-check">✓</div>
                 <span className="hero__stat-v">{s.v}</span>
                 <span className="hero__stat-l">{s.l1}<br/>{s.l2}</span>
               </div>
@@ -53,7 +77,8 @@ export default function Hero({ ready }) {
         {/* ── CENTRE ── */}
         <div className="hero__centre">
           <div className={c('hero__hey')} aria-hidden="true">
-            <span className="hero__hey-text">Hey, I'm Disha</span>
+            <span className="hero__hey-left">Hey</span>
+            <span className="hero__hey-right">There</span>
           </div>
           <img src="/disha.png" alt="Disha Rao"
                className={c('hero__photo')} draggable={false}/>
@@ -62,15 +87,19 @@ export default function Hero({ ready }) {
         {/* ── RIGHT ── */}
         <aside className="hero__right">
           <div className={c('hero__bubble')}>
-            <p>Turning ideas into intelligent digital experiences.</p>
+            <svg className="hero__bubble-ring" viewBox="0 0 2200 800" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M1136 719c-183.3-3.2-366-25-546-59.7a1894.8 1894.8 0 0 1-186.9-44c-52.6-16-105.5-34.8-151.3-66-31.2-23.1-65.8-42.5-91.1-72.8-51.6-56-55.7-137.1-2.2-193.5 61.2-64 150.8-89.7 233.5-113.6 118.3-32.7 240.9-42.7 362-57.7C1083.5 57 1427 73.3 1747 170c-11.7-5.7-5.7-17.6 5.5-12a3350 3350 0 0 1 30.3 24.2c13.2 4.2 26 9.4 39 14.4 95.4 38.6 253.7 112.3 258 230.2-1.9 111-194.4 170.1-282.6 199.2-81.6 24.4-165.4 39.6-248 60.5-135.7 27.7-274.9 34.7-413.2 32.5Zm-61.1-24c133.1 3.5 266.5-2.5 398.9-17.5 51.3-6.4 102.6-13.6 153.4-23.5a770 770 0 0 0 170.4-70c-168.5 51-344.3 73-519.3 85.8-179.1 11-359.2 11.9-538-4 110.9 15.7 222.6 25.8 334.6 29.3Zm-178.5-32.2c191.7 6 384 0 574.3-24.7 124.8-16.3 249.5-39.7 368.5-81.3 95.9-68 162.5-184.4 47-271l-48-40.8c-33.6-13-68.2-23.3-102.8-33.4-3.5 3.5-9.3 1-11.4-3-139-39.9-283.5-53.3-427.5-60.3-247.7-11-496.5 10.7-739.8 58A1909.1 1909.1 0 0 0 388 248c-24.4 8-48.8 16.1-72.5 26-18 11.4-35 24.2-51.4 37.7-38 32.4-76.3 77.4-69.5 130.8 7 14.5 16.7 27.6 27.8 39.3 155.2 149 467.1 171.3 674 181Zm942.2-88.6a638 638 0 0 1-104.4 56c90.5-24.4 295.9-83.4 326.1-179.8 29-120.2-155.9-208-246.8-243.2 11.3 9 22 19.1 33.7 27.6 21.9 8 43 17.7 64.1 27.7 32.3 16 63.5 35.2 89.7 60.2 59.4 54.8 57.6 125.7-8.6 173.8-28.6 22-61.5 37.5-94.4 51.8-19.5 9.3-42 13.2-59.4 25.9ZM254 532.2a640.1 640.1 0 0 0 54.3 27 365.2 365.2 0 0 1-93.3-65c10.8 14.5 23 29.3 39 38Zm1651.3-248c98.3 78 58.8 185-23.5 256.5 206.6-78.5 185.6-195.9-3.3-279.2l26.8 22.7ZM195.5 491.6c-13.3-21.5-16.3-46.8-24-70.4-16-79.6 66.5-128.3 129-155 96.8-59.8 205.1-98.7 315.4-125.7-128.1 17.6-410 59.6-469.4 186.4-29.2 58.5 1.5 126.2 49 164.7Zm-8.8-107.1-.7 3.6c11.5-29.3 32-53.8 55-74.8-24.5 17.2-48.1 41-54.3 71.2ZM397 229.4c-5.3 2.3-10.5 4.8-15.6 7.5 143-43 291-66.3 439.2-83.8a2987.2 2987.2 0 0 1 519.8-14.3c-193.6-22.1-389.2-28-583.5-12.5-45 3.6-88.9 15.6-132.7 25.6A1235.4 1235.4 0 0 0 397 229.4Zm1336.8-31.2c25.6 7 51.1 14.5 76.2 23.2l-34-28c-20-6.9-40-13.6-60.4-19.3a1814 1814 0 0 0-135.3-34.2 2254.7 2254.7 0 0 0-695.7-33.4c196.8-6.7 394 7.8 588.6 37.5 36.4 5.8 72.7 12.1 109 19 50.9 8.8 104.7 12.5 151.6 35.2Z" fill="#1d9e75" />
+            </svg>
+            <span className="hero__bubble-text">
+              Turning Ideas into<br/>
+              Intelligent Digital<br/>
+              Experiences
+            </span>
           </div>
+
           <a href={`mailto:${personalDetails.email}`}
              className={c('hero__email')}>
-            {personalDetails.email}
-          </a>
-          <a href="/resume.pdf" download="Disha_Rao_Resume.pdf"
-             className={c('hero__dlcv')}>
-            Download CV
+            <span className="hero__email-inner">{personalDetails.email}</span>
           </a>
         </aside>
 
