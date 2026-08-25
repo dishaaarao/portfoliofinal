@@ -33,12 +33,24 @@ export default function ProjectModal({ project, onClose }) {
           </button>
         </div>
 
-        {/* Accent stripe using project color */}
+        {/* Banner with project image or background gradient */}
         <div
           className="modal-banner"
           style={{ background: project.imageBg }}
-          aria-hidden="true"
-        />
+        >
+          {project.image && (
+            <img
+              src={project.image}
+              alt={project.title}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'center top',
+              }}
+            />
+          )}
+        </div>
 
         {/* Body */}
         <div className="modal-body">

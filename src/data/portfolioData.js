@@ -70,6 +70,7 @@ export const projects = [
     liveUrl: "https://aura-lilac-xi-14.vercel.app/",
     featured: true,
     imageBg: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+    image: "/lisa-ai.png",
     highlights: [
       "Real-time AI chat with context-aware responses",
       "Clean minimal UI optimised for conversation flow",
@@ -87,6 +88,7 @@ export const projects = [
     liveUrl: "https://snapscan-kappa.vercel.app/",
     featured: true,
     imageBg: "linear-gradient(135deg, #f59e0b 0%, #ef4444 100%)",
+    image: "/technova.png",
     highlights: [
       "Real-time collaborative uploads with live sync",
       "Masonry grid layout with smooth image transitions",
@@ -104,6 +106,7 @@ export const projects = [
     liveUrl: "https://yogurberry.com.au/",
     featured: true,
     imageBg: "linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%)",
+    image: "/yogurberry.png",
     highlights: [
       "Full brand identity system with colour, typography, and component tokens",
       "Interactive Figma prototype with menu customiser and store locator flows",
