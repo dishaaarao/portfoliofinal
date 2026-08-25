@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Download, Sparkles, Code2, Palette, Cpu, Terminal, ShieldCheck } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import './About.css';
 
 const expertiseList = [
@@ -89,7 +90,7 @@ export default function About() {
             </div>
           </div>
 
-          {/* Right Column — Unique Interactive Expertise Showcase */}
+          {/* Right Column — Animated Card Showcase */}
           <div className="about-right" data-reveal data-reveal-delay="1">
             
             <div className="about-card">
@@ -106,30 +107,51 @@ export default function About() {
                   const Icon = item.icon;
                   const isActive = activeItem.id === item.id;
                   return (
-                    <button
+                    <motion.button
                       key={item.id}
+                      whileHover={{ y: -2 }}
+                      whileTap={{ scale: 0.95 }}
                       className={`about-tab-btn ${isActive ? 'is-active' : ''}`}
                       onClick={() => setActiveItem(item)}
                     >
                       <Icon size={14} className="tab-icon" />
                       <span>{item.title}</span>
-                    </button>
+                    </motion.button>
                   );
                 })}
               </div>
 
-              {/* Active Tab Card Content */}
-              <div className="about-tab-content">
-                <div className="tab-meta">
-                  <span className="tab-category">{activeItem.category}</span>
-                </div>
-                <p className="tab-desc">{activeItem.desc}</p>
+              {/* Active Tab Card Content with 3D Card Animation */}
+              <div className="about-tab-card-wrapper" style={{ perspective: 1000 }}>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeItem.id}
+                    initial={{ opacity: 0, y: 12, rotateX: -12, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -12, rotateX: 12, scale: 0.96 }}
+                    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                    className="about-tab-content"
+                  >
+                    <div className="tab-meta">
+                      <span className="tab-category">{activeItem.category}</span>
+                    </div>
+                    <p className="tab-desc">{activeItem.desc}</p>
 
-                <div className="tab-tools">
-                  {activeItem.tools.map((tool) => (
-                    <span key={tool} className="tool-tag">{tool}</span>
-                  ))}
-                </div>
+                    <div className="tab-tools">
+                      {activeItem.tools.map((tool, idx) => (
+                        <motion.span
+                          key={tool}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: idx * 0.05, duration: 0.2 }}
+                          className="tool-tag"
+                        >
+                          {tool}
+                        </motion.span>
+                      ))}
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
             </div>
 

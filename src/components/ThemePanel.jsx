@@ -13,10 +13,10 @@ const ACCENTS = [
 ];
 
 const BG_MODES = [
-  { name: 'Pure Black', bg: '#0a0a0a', secondary: '#111111' },
-  { name: 'Dark Grey',  bg: '#111827', secondary: '#1f2937' },
-  { name: 'Deep Navy',  bg: '#0d1117', secondary: '#161b22' },
-  { name: 'Dark Brown', bg: '#12100e', secondary: '#1c1916' },
+  { name: 'Warm Cream', bg: '#f7f3ee', secondary: '#ede8e0' },
+  { name: 'Pure White', bg: '#ffffff', secondary: '#f8fafc' },
+  { name: 'Soft Paper', bg: '#f4efe6', secondary: '#eae4d8' },
+  { name: 'Dark Navy',  bg: '#0d1117', secondary: '#161b22' },
 ];
 
 function hexToHsl(hex) {
@@ -36,14 +36,18 @@ function hexToHsl(hex) {
 
 export default function ThemePanel() {
   const [open,   setOpen]   = useState(false);
-  const [accent, setAccent] = useState('#e63946');
+  const [accent, setAccent] = useState('#0d9488');
   const [bgMode, setBgMode] = useState(0);
-  const [custom, setCustom] = useState('#e63946');
-  const [isDark, setIsDark] = useState(true);
+  const [custom, setCustom] = useState('#0d9488');
+  const [isDark, setIsDark] = useState(false);
 
   const applyLightDark = (dark) => {
     setIsDark(dark);
     document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+    if (!dark) {
+      document.documentElement.style.setProperty('--bg-primary',   '#f7f3ee');
+      document.documentElement.style.setProperty('--bg-secondary', '#ede8e0');
+    }
   };
 
   const applyAccent = (hex) => {
@@ -67,9 +71,9 @@ export default function ThemePanel() {
 
   // Reset to defaults
   const reset = () => {
-    applyAccent('#e63946');
+    applyAccent('#0d9488');
     applyBg(0);
-    applyLightDark(true);
+    applyLightDark(false);
   };
 
   return (
