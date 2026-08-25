@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
 import { projects, projectCategories } from '../data/portfolioData';
 import ProjectModal from './ProjectModal';
-import { ColorfulBentoGrid } from './ui/colorful-bento-grid';
+import { DeviceScrollShowcase } from './ui/device-scroll-showcase';
 import './Projects.css';
 
 /* Stagger-reveal project rows when the list enters viewport */
@@ -59,8 +59,8 @@ export default function Projects() {
     <section id="projects" className="section">
       <div className="container">
 
-        {/* Colorful Bento Grid */}
-        <ColorfulBentoGrid />
+        {/* 3D Device Scroll Showcase */}
+        <DeviceScrollShowcase />
 
         {/* Project rows header */}
         <div
